@@ -19,14 +19,15 @@ jobs:
           repository: ggerganov/llama.cpp
           path: llama.cpp
           fetch-depth: 0
+          fetch-tags: true
 
       - name: Identify versions
         id: versions
         run: |
           cd llama.cpp
           git fetch --tags
-          LLAMA_TAG=$(git describe --tags --abbrev=0)
-          echo "llama_commit=$LLAMA_COMMIT" >> $GITHUB_OUTPUT
+          LLAMA_TAG=$(git describe --tags --abbrev=0 --match 'b*')
+          echo "llama_tag=$LLAMA_TAG" >> $GITHUB_OUTPUT
           cd ..
           
           if [ -f last_commit.txt ]; then
@@ -36,12 +37,12 @@ jobs:
           fi
 
       - name: Skip if no new commits
-        if: ${{ steps.versions.outputs.llama_commit == steps.versions.outputs.last_commit }}
+        if: ${{ steps.versions.outputs.llama_tag == steps.versions.outputs.last_commit }}
         run: exit 0
 
       - name: add last_commit
         run: |
-          echo "${{ steps.versions.outputs.llama_commit }}" > last_commit.txt
+          echo "${{ steps.versions.outputs.llama_tag }}" > last_commit.txt
           git add last_commit.txt
 
       - name: Setup dart

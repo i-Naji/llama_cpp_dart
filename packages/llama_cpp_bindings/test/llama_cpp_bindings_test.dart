@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 void main() {
   group('LlamaBindings', () {
     test('Verify llama.cpp shared library symbols', () {
-      LlamaBindings.fromLookup(DynamicLibrary.open('packages/llama_cpp_bindings/llama.cpp/build/src/libllama.so')
+      LlamaBindings.fromLookup(DynamicLibrary.open('llama.cpp/build/src/libllama.so')
           .lookup);
     });
   });
