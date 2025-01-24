@@ -1,0 +1,96 @@
+name: Llama.cpp Binding Automation Suite
+
+on:
+  workflow_dispatch:     # Manual trigger
+
+jobs:
+  main:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch llama.cpp
+        uses: actions/checkout@v4
+        with:
+          repository: ggerganov/llama.cpp
+          path: llama.cpp
+          fetch-depth: 0
+
+      - name: Identify versions
+        id: versions
+        run: |
+          cd llama.cpp
+          git fetch --tags
+          LLAMA_TAG=$(git describe --tags --abbrev=0)
+          echo "llama_commit=$LLAMA_COMMIT" >> $GITHUB_OUTPUT
+          cd ..
+          
+          if [ -f last_commit.txt ]; then
+            echo "last_commit=$(cat last_commit.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "last_commit=initial" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip if no new commits
+        if: ${{ steps.versions.outputs.llama_commit == steps.versions.outputs.last_commit }}
+        run: exit 0
+
+      - name: add last_commit
+        run: |
+          echo "${{ steps.versions.outputs.llama_commit }}" > last_commit.txt
+          git add last_commit.txt
+
+      - name: Configure environment
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libclang-dev build-essential libcurl4-openssl-dev
+          cd packages/llama_cpp_bindings
+          dart pub get
+
+      - name: Generate FFI bindings
+        run: |
+          cd packages/llama_cpp_bindings
+          dart run ffigen
+
+      - name: Detect binding changes
+        id: changes
+        run: |
+          if git diff HEAD --exit-code packages/llama_cpp_bindings/lib/src/generated_llama_cpp_bindings.dart; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            git add packages/llama_cpp_bindings/lib/src/generated_llama_cpp_bindings.dart
+          fi
+
+      - name: Build llama.cpp
+        if: ${{ steps.changes.outputs.has_changes == 'true' }}
+        run: |
+          cd llama.cpp
+          mkdir build
+          cd build
+          cmake .. \
+            -DLLAMA_FATAL_WARNINGS=ON \
+            -DLLAMA_CURL=ON \
+            -DGGML_RPC=ON
+          cmake --build . --config Release -j $(nproc)
+
+      - name: Test shared library loading
+        if: ${{ steps.changes.outputs.has_changes == 'true' }}
+        run: |
+          dart packages/llama_cpp_bindings/test/llama_cpp_bindings_test.dart
+        env:
+          LD_LIBRARY_PATH: ${{ github.workspace }}/llama.cpp/build
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git commit -m "chore(bindings): Auto-update to llama.cpp@${ { steps.versions.outputs.llama_commit:0:7 } }"
+          git push
