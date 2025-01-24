@@ -44,10 +44,12 @@ jobs:
           echo "${{ steps.versions.outputs.llama_commit }}" > last_commit.txt
           git add last_commit.txt
 
-      - name: Configure environment
+      - name: Setup dart
         uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
+
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y cmake libclang-dev build-essential libcurl4-openssl-dev
