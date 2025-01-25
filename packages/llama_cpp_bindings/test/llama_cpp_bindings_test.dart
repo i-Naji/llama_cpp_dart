@@ -8,7 +8,7 @@ void main() {
   group('LlamaBindings', () {
     test('Verify llama.cpp shared library symbols', () {
       final libPath = Platform.environment['LLAMA_LIB_PATH'] ?? '../llama.cpp/build/libllama.so';
-      LlamaBindings.fromLookup(DynamicLibrary.open('libPath').lookup);
+      LlamaBindings.fromLookup(DynamicLibrary.open(libPath).lookup);
     });
   });
 }

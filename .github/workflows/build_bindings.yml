@@ -40,6 +40,10 @@ jobs:
         if: ${{ steps.versions.outputs.llama_tag == steps.versions.outputs.last_commit }}
         run: exit 0
 
+      - name: Checkout identified tag
+        run: |
+          cd llama.cpp
+          git checkout ${{ steps.versions.outputs.llama_tag }}
       - name: add last_commit
         run: |
           echo "${{ steps.versions.outputs.llama_tag }}" > last_commit.txt
@@ -84,12 +88,19 @@ jobs:
             -DGGML_RPC=ON
           cmake --build . --config Release -j $(nproc)
 
+      - name: Debug workspace
+        if: ${{ steps.changes.outputs.has_changes == 'true' }}
+        run: |
+          echo "Workspace path: ${{ github.workspace }}"
+          ls -la ${{ github.workspace }}
+          ls -la ${{ github.workspace }}/llama.cpp/build/*.so
+
       - name: Test shared library loading
         if: ${{ steps.changes.outputs.has_changes == 'true' }}
         run: |
           dart packages/llama_cpp_bindings/test/llama_cpp_bindings_test.dart
         env:
-          LD_LIBRARY_PATH: ${{ github.workspace }}/llama.cpp/build/ggml/src;${{ github.workspace }}/llama.cpp/build/ggml/src/ggml-rpc;
+          LD_LIBRARY_PATH: ${{ github.workspace }}/llama.cpp/build/ggml/src:${{ github.workspace }}/llama.cpp/build/ggml/src/ggml-rpc
           LLAMA_LIB_PATH: ${{ github.workspace }}/llama.cpp/build/src/libllama.so
 
       - name: Commit and push changes
