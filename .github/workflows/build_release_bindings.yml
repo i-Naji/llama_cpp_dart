@@ -1,0 +1,102 @@
+name: Llama.cpp Release Binding Automation
+
+on:
+  workflow_dispatch:     # Manual trigger
+
+jobs:
+  main:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout codebase
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get llama.cpp latest release tag
+        id: get-latest-tag
+        run: |
+          LATEST_TAG=$(curl -s https://api.github.com/repos/ggerganov/llama.cpp/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+          echo "Latest tag: $LATEST_TAG"
+          echo "llama_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
+
+      - name: Identify versions
+        id: versions
+        run: |
+          if [ -f last_commit.txt ]; then
+            echo "last_commit=$(cat last_commit.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "last_commit=initial" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip if no new commits
+        if: ${{ steps.get-latest-tag.outputs.llama_tag == steps.versions.outputs.last_commit }}
+        run: exit 0
+
+      - name: add last_commit
+        run: |
+          echo "${{ steps.get-latest-tag.outputs.llama_tag }}" > last_commit.txt
+          git add last_commit.txt
+
+      - name: Checkout llama.cpp repository at the latest tag
+        uses: actions/checkout@v4
+        with:
+          repository: ggerganov/llama.cpp
+          ref: ${{ steps.get-latest-tag.outputs.llama_tag }}
+          path: llama.cpp
+
+      - name: Setup dart
+        uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libclang-dev
+          cd packages/llama_cpp_bindings
+          dart pub get
+
+      - name: Generate FFI bindings
+        run: |
+          cd packages/llama_cpp_bindings
+          dart run ffigen
+
+      - name: Detect binding changes
+        id: changes
+        run: |
+          if git diff HEAD --exit-code packages/llama_cpp_bindings/lib/src/generated_llama_cpp_bindings.dart; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            git add packages/llama_cpp_bindings/lib/src/generated_llama_cpp_bindings.dart
+          fi
+
+      - name: Download llama.cpp release asset
+        if: ${{ steps.changes.outputs.has_changes == 'true' }}
+        run: |
+          TAG_NAME=${{ steps.get-latest-tag.outputs.llama_tag }}
+          ASSET_URL="https://github.com/ggerganov/llama.cpp/releases/download/$TAG_NAME/llama-$TAG_NAME-bin-ubuntu-x64.zip"
+          echo "Downloading asset from: $ASSET_URL"
+          wget -O llama-bin.zip "$ASSET_URL"
+
+      - name: Unzip the downloaded asset
+        if: ${{ steps.changes.outputs.has_changes == 'true' }}
+        run: |
+          unzip llama-bin.zip -d llama.cpp/build
+          ls -R llama.cpp/build
+
+      - name: Test shared library loading
+        if: ${{ steps.changes.outputs.has_changes == 'true' }}
+        run: |
+          dart packages/llama_cpp_bindings/test/llama_cpp_bindings_test.dart
+        env:
+          LD_LIBRARY_PATH: ${{ github.workspace }}/llama.cpp/build/bin/
+          LLAMA_LIB_DIR: ${{ github.workspace }}/llama.cpp/build/bin
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git commit -m "chore(bindings): Auto-update to llama.cpp@[${{ steps.get-latest-tag.outputs.llama_tag }}](https://github.com/ggerganov/llama.cpp/releases/tag/${{ steps.get-latest-tag.outputs.llama_tag }})"
+          git push

@@ -7,8 +7,12 @@ import 'package:test/test.dart';
 void main() {
   group('LlamaBindings', () {
     test('Verify llama.cpp shared library symbols', () {
-      final libPath = Platform.environment['LLAMA_LIB_PATH'] ?? '../llama.cpp/build/libllama.so';
-      LlamaBindings.fromLookup(DynamicLibrary.open(libPath).lookup);
+      final libDir = Platform.environment['LLAMA_LIB_DIR'] ?? '../../llama.cpp/build/bin';
+      DynamicLibrary.open('$libDir/libggml-base.so');
+      DynamicLibrary.open('$libDir/libggml-cpu.so');
+      DynamicLibrary.open('$libDir/libggml-rpc.so');
+      DynamicLibrary.open('$libDir/libggml.so');
+      LlamaBindings.fromLookup(DynamicLibrary.open('$libDir/libllama.so').lookup);
     });
   });
 }
