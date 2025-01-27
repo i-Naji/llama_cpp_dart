@@ -88,12 +88,14 @@ jobs:
             -DGGML_RPC=ON
           cmake --build . --config Release -j $(nproc)
 
-#      - name: Debug workspace
-#        if: ${{ steps.changes.outputs.has_changes == 'true' }}
-#        run: |
-#          echo "Workspace path: ${{ github.workspace }}"
-#          ls -la ${{ github.workspace }}
-#          ls -la ${{ github.workspace }}/llama.cpp/build/*.so
+      - name: Debug workspace
+        if: ${{ steps.changes.outputs.has_changes == 'true' }}
+        run: |
+          echo "Workspace path: ${{ github.workspace }}"
+          ls -la ${{ github.workspace }}
+          cd llama.cpp/build/
+          find . -name "*.so" -exec realpath {} \;
+          ls -la ${{ github.workspace }}/llama.cpp/build/*.so
 
       - name: Test shared library loading
         if: ${{ steps.changes.outputs.has_changes == 'true' }}
@@ -107,5 +109,5 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git commit -m "chore(bindings): Auto-update to llama.cpp@${ { steps.versions.outputs.llama_commit:0:7 } }"
+          git commit -m "chore(bindings): Auto-update to llama.cpp@${ { steps.versions.outputs.llama_tag:0:7 } }"
           git push
