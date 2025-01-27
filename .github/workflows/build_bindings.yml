@@ -95,15 +95,14 @@ jobs:
           ls -la ${{ github.workspace }}
           cd llama.cpp/build/
           find . -name "*.so" -exec realpath {} \;
-          ls -la ${{ github.workspace }}/llama.cpp/build/*.so
 
       - name: Test shared library loading
         if: ${{ steps.changes.outputs.has_changes == 'true' }}
         run: |
           dart packages/llama_cpp_bindings/test/llama_cpp_bindings_test.dart
         env:
-          LD_LIBRARY_PATH: ${{ github.workspace }}/llama.cpp/build/ggml/src:${{ github.workspace }}/llama.cpp/build/ggml/src/ggml-rpc
-          LLAMA_LIB_PATH: ${{ github.workspace }}/llama.cpp/build/src/libllama.so
+          LD_LIBRARY_PATH: ${{ github.workspace }}/llama.cpp/build/bin/
+          LLAMA_LIB_PATH: ${{ github.workspace }}/llama.cpp/build/bin/libllama.so
 
       - name: Commit and push changes
         run: |
