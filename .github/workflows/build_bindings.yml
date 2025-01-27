@@ -38,7 +38,7 @@ jobs:
 
       - name: Skip if no new commits
         if: ${{ steps.versions.outputs.llama_tag == steps.versions.outputs.last_commit }}
-        run: exit 0
+        run: exit 1
 
       - name: Checkout identified tag
         run: |
@@ -102,7 +102,7 @@ jobs:
           dart packages/llama_cpp_bindings/test/llama_cpp_bindings_test.dart
         env:
           LD_LIBRARY_PATH: ${{ github.workspace }}/llama.cpp/build/bin/
-          LLAMA_LIB_PATH: ${{ github.workspace }}/llama.cpp/build/bin/libllama.so
+          LLAMA_LIB_DIR: ${{ github.workspace }}/llama.cpp/build/bin
 
       - name: Commit and push changes
         run: |

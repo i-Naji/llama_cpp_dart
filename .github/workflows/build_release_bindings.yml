@@ -31,7 +31,7 @@ jobs:
 
       - name: Skip if no new commits
         if: ${{ steps.get-latest-tag.outputs.llama_tag == steps.versions.outputs.last_commit }}
-        run: exit 0
+        run: exit 1
 
       - name: add last_commit
         run: |
@@ -83,7 +83,7 @@ jobs:
       - name: Unzip the downloaded asset
         if: ${{ steps.changes.outputs.has_changes == 'true' }}
         run: |
-          unzip llama-bin.zip -d llama.cpp/build
+          unzip llama-bin.zip -d llama.cpp
           ls -R llama.cpp/build
 
       - name: Test shared library loading
