@@ -1,6 +1,8 @@
 name: Llama.cpp Binding Automation Suite
 
 on:
+  schedule:
+    - cron: '0 * * * *'
   workflow_dispatch:     # Manual trigger
 
 jobs:
@@ -108,5 +110,5 @@ jobs:
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
-          git commit -m "chore(bindings): Auto-update to llama.cpp@[${{ steps.versions.outputs.llama_tag }}](https://github.com/ggerganov/llama.cpp/releases/tag/${{ steps.versions.outputs.llama_tag }})"
+          git commit -m "chore(bindings): Auto-update to llama.cpp@${{ steps.versions.outputs.llama_tag }}"
           git push
