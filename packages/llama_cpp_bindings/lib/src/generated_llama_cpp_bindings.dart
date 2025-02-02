@@ -16301,7 +16301,7 @@ const int GGML_ROPE_TYPE_MROPE = 8;
 
 const int GGML_ROPE_TYPE_VISION = 24;
 
-const int GGML_KQ_MASK_PAD = 32;
+const int GGML_KQ_MASK_PAD = 64;
 
 const int GGML_N_TASKS_MAX = -1;
 
