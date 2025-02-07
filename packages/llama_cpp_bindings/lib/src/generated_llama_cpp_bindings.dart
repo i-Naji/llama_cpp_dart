@@ -13204,6 +13204,24 @@ class LlamaBindings {
   late final _llama_chat_builtin_templates = _llama_chat_builtin_templatesPtr
       .asFunction<int Function(ffi.Pointer<ffi.Pointer<ffi.Char>>, int)>();
 
+  ffi.Pointer<llama_sampler> llama_sampler_init(
+    ffi.Pointer<llama_sampler_i> iface,
+    llama_sampler_context_t ctx,
+  ) {
+    return _llama_sampler_init(
+      iface,
+      ctx,
+    );
+  }
+
+  late final _llama_sampler_initPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<llama_sampler> Function(ffi.Pointer<llama_sampler_i>,
+              llama_sampler_context_t)>>('llama_sampler_init');
+  late final _llama_sampler_init = _llama_sampler_initPtr.asFunction<
+      ffi.Pointer<llama_sampler> Function(
+          ffi.Pointer<llama_sampler_i>, llama_sampler_context_t)>();
+
   ffi.Pointer<ffi.Char> llama_sampler_name(
     ffi.Pointer<llama_sampler> smpl,
   ) {
