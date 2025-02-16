@@ -16,7 +16,7 @@ jobs:
       - name: Fetch llama.cpp
         uses: actions/checkout@v4
         with:
-          repository: ggerganov/llama.cpp
+          repository: ggml-org/llama.cpp
           path: llama.cpp
           fetch-depth: 0
           fetch-tags: true

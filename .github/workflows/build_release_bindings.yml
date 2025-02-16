@@ -18,7 +18,7 @@ jobs:
       - name: Get llama.cpp latest release tag
         id: get-latest-tag
         run: |
-          LATEST_TAG=$(curl -s https://api.github.com/repos/ggerganov/llama.cpp/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
+          LATEST_TAG=$(curl -s https://api.github.com/repos/ggml-org/llama.cpp/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
           echo "Latest tag: $LATEST_TAG"
           echo "llama_tag=$LATEST_TAG" >> $GITHUB_OUTPUT
 
@@ -43,7 +43,7 @@ jobs:
       - name: Checkout llama.cpp repository at the latest tag
         uses: actions/checkout@v4
         with:
-          repository: ggerganov/llama.cpp
+          repository: ggml-org/llama.cpp
           ref: ${{ steps.get-latest-tag.outputs.llama_tag }}
           path: llama.cpp
 
@@ -78,7 +78,7 @@ jobs:
         if: ${{ steps.changes.outputs.has_changes == 'true' }}
         run: |
           TAG_NAME=${{ steps.get-latest-tag.outputs.llama_tag }}
-          ASSET_URL="https://github.com/ggerganov/llama.cpp/releases/download/$TAG_NAME/llama-$TAG_NAME-bin-ubuntu-x64.zip"
+          ASSET_URL="https://github.com/ggml-org/llama.cpp/releases/download/$TAG_NAME/llama-$TAG_NAME-bin-ubuntu-x64.zip"
           echo "Downloading asset from: $ASSET_URL"
           wget -O llama-bin.zip "$ASSET_URL"
 
