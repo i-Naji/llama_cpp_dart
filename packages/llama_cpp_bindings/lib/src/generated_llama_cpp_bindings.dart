@@ -10489,6 +10489,15 @@ class LlamaBindings {
   late final _ggml_cpu_get_sve_cnt =
       _ggml_cpu_get_sve_cntPtr.asFunction<int Function()>();
 
+  int ggml_cpu_has_sme() {
+    return _ggml_cpu_has_sme();
+  }
+
+  late final _ggml_cpu_has_smePtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('ggml_cpu_has_sme');
+  late final _ggml_cpu_has_sme =
+      _ggml_cpu_has_smePtr.asFunction<int Function()>();
+
   int ggml_cpu_has_riscv_v() {
     return _ggml_cpu_has_riscv_v();
   }
