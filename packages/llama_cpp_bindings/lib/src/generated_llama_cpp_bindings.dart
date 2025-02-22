@@ -10516,6 +10516,15 @@ class LlamaBindings {
   late final _ggml_cpu_has_vsx =
       _ggml_cpu_has_vsxPtr.asFunction<int Function()>();
 
+  int ggml_cpu_has_vxe() {
+    return _ggml_cpu_has_vxe();
+  }
+
+  late final _ggml_cpu_has_vxePtr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('ggml_cpu_has_vxe');
+  late final _ggml_cpu_has_vxe =
+      _ggml_cpu_has_vxePtr.asFunction<int Function()>();
+
   int ggml_cpu_has_wasm_simd() {
     return _ggml_cpu_has_wasm_simd();
   }
