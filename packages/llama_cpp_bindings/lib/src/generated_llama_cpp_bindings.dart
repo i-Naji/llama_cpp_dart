@@ -11196,6 +11196,20 @@ class LlamaBindings {
   late final _llama_model_n_head = _llama_model_n_headPtr
       .asFunction<int Function(ffi.Pointer<llama_model>)>();
 
+  int llama_model_n_head_kv(
+    ffi.Pointer<llama_model> model,
+  ) {
+    return _llama_model_n_head_kv(
+      model,
+    );
+  }
+
+  late final _llama_model_n_head_kvPtr =
+      _lookup<ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<llama_model>)>>(
+          'llama_model_n_head_kv');
+  late final _llama_model_n_head_kv = _llama_model_n_head_kvPtr
+      .asFunction<int Function(ffi.Pointer<llama_model>)>();
+
   double llama_model_rope_freq_scale_train(
     ffi.Pointer<llama_model> model,
   ) {
