@@ -15414,7 +15414,8 @@ enum llama_vocab_pre_type {
   LLAMA_VOCAB_PRE_TYPE_EXAONE(25),
   LLAMA_VOCAB_PRE_TYPE_CHAMELEON(26),
   LLAMA_VOCAB_PRE_TYPE_MINERVA(27),
-  LLAMA_VOCAB_PRE_TYPE_DEEPSEEK3_LLM(28);
+  LLAMA_VOCAB_PRE_TYPE_DEEPSEEK3_LLM(28),
+  LLAMA_VOCAB_PRE_TYPE_GPT4O(29);
 
   final int value;
   const llama_vocab_pre_type(this.value);
@@ -15449,6 +15450,7 @@ enum llama_vocab_pre_type {
         26 => LLAMA_VOCAB_PRE_TYPE_CHAMELEON,
         27 => LLAMA_VOCAB_PRE_TYPE_MINERVA,
         28 => LLAMA_VOCAB_PRE_TYPE_DEEPSEEK3_LLM,
+        29 => LLAMA_VOCAB_PRE_TYPE_GPT4O,
         _ =>
           throw ArgumentError("Unknown value for llama_vocab_pre_type: $value"),
       };
