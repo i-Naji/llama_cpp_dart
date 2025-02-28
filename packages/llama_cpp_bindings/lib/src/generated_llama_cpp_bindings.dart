@@ -7994,22 +7994,22 @@ class LlamaBindings {
   late final _ggml_tallocr_new = _ggml_tallocr_newPtr
       .asFunction<ggml_tallocr Function(ggml_backend_buffer_t)>();
 
-  void ggml_tallocr_alloc(
+  ggml_status ggml_tallocr_alloc(
     ffi.Pointer<ggml_tallocr> talloc,
     ffi.Pointer<ggml_tensor> tensor,
   ) {
-    return _ggml_tallocr_alloc(
+    return ggml_status.fromValue(_ggml_tallocr_alloc(
       talloc,
       tensor,
-    );
+    ));
   }
 
   late final _ggml_tallocr_allocPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ggml_tallocr>,
+          ffi.Int Function(ffi.Pointer<ggml_tallocr>,
               ffi.Pointer<ggml_tensor>)>>('ggml_tallocr_alloc');
   late final _ggml_tallocr_alloc = _ggml_tallocr_allocPtr.asFunction<
-      void Function(ffi.Pointer<ggml_tallocr>, ffi.Pointer<ggml_tensor>)>();
+      int Function(ffi.Pointer<ggml_tallocr>, ffi.Pointer<ggml_tensor>)>();
 
   ggml_gallocr_t ggml_gallocr_new(
     ggml_backend_buffer_type_t buft,
@@ -8339,23 +8339,23 @@ class LlamaBindings {
   late final _ggml_backend_buffer_get_size = _ggml_backend_buffer_get_sizePtr
       .asFunction<int Function(ggml_backend_buffer_t)>();
 
-  void ggml_backend_buffer_init_tensor(
+  ggml_status ggml_backend_buffer_init_tensor(
     ggml_backend_buffer_t buffer,
     ffi.Pointer<ggml_tensor> tensor,
   ) {
-    return _ggml_backend_buffer_init_tensor(
+    return ggml_status.fromValue(_ggml_backend_buffer_init_tensor(
       buffer,
       tensor,
-    );
+    ));
   }
 
   late final _ggml_backend_buffer_init_tensorPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ggml_backend_buffer_t,
+          ffi.Int Function(ggml_backend_buffer_t,
               ffi.Pointer<ggml_tensor>)>>('ggml_backend_buffer_init_tensor');
   late final _ggml_backend_buffer_init_tensor =
       _ggml_backend_buffer_init_tensorPtr.asFunction<
-          void Function(ggml_backend_buffer_t, ffi.Pointer<ggml_tensor>)>();
+          int Function(ggml_backend_buffer_t, ffi.Pointer<ggml_tensor>)>();
 
   int ggml_backend_buffer_get_alignment(
     ggml_backend_buffer_t buffer,
@@ -9863,40 +9863,40 @@ class LlamaBindings {
               ggml_backend_eval_callback,
               ffi.Pointer<ffi.Void>)>();
 
-  void ggml_backend_tensor_alloc(
+  ggml_status ggml_backend_tensor_alloc(
     ggml_backend_buffer_t buffer,
     ffi.Pointer<ggml_tensor> tensor,
     ffi.Pointer<ffi.Void> addr,
   ) {
-    return _ggml_backend_tensor_alloc(
+    return ggml_status.fromValue(_ggml_backend_tensor_alloc(
       buffer,
       tensor,
       addr,
-    );
+    ));
   }
 
   late final _ggml_backend_tensor_allocPtr = _lookup<
       ffi.NativeFunction<
-          ffi.Void Function(ggml_backend_buffer_t, ffi.Pointer<ggml_tensor>,
+          ffi.Int Function(ggml_backend_buffer_t, ffi.Pointer<ggml_tensor>,
               ffi.Pointer<ffi.Void>)>>('ggml_backend_tensor_alloc');
   late final _ggml_backend_tensor_alloc =
       _ggml_backend_tensor_allocPtr.asFunction<
-          void Function(ggml_backend_buffer_t, ffi.Pointer<ggml_tensor>,
+          int Function(ggml_backend_buffer_t, ffi.Pointer<ggml_tensor>,
               ffi.Pointer<ffi.Void>)>();
 
-  void ggml_backend_view_init(
+  ggml_status ggml_backend_view_init(
     ffi.Pointer<ggml_tensor> tensor,
   ) {
-    return _ggml_backend_view_init(
+    return ggml_status.fromValue(_ggml_backend_view_init(
       tensor,
-    );
+    ));
   }
 
   late final _ggml_backend_view_initPtr =
-      _lookup<ffi.NativeFunction<ffi.Void Function(ffi.Pointer<ggml_tensor>)>>(
+      _lookup<ffi.NativeFunction<ffi.Int Function(ffi.Pointer<ggml_tensor>)>>(
           'ggml_backend_view_init');
   late final _ggml_backend_view_init = _ggml_backend_view_initPtr
-      .asFunction<void Function(ffi.Pointer<ggml_tensor>)>();
+      .asFunction<int Function(ffi.Pointer<ggml_tensor>)>();
 
   ggml_backend_buffer_t ggml_backend_cpu_buffer_from_ptr(
     ffi.Pointer<ffi.Void> ptr,
