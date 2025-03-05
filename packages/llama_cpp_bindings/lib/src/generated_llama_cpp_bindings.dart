@@ -13685,9 +13685,6 @@ class LlamaBindings {
           ffi.Pointer<llama_sampler> Function(ffi.Pointer<llama_vocab>,
               ffi.Pointer<ffi.Char>, ffi.Pointer<ffi.Char>)>();
 
-  /// @details Lazy grammar sampler, introduced in https://github.com/ggml-org/llama.cpp/pull/9639
-  /// @param trigger_words A list of words that will trigger the grammar sampler. This may be updated to a loose regex syntax (w/ ^) in a near future.
-  /// @param trigger_tokens A list of tokens that will trigger the grammar sampler.
   ffi.Pointer<llama_sampler> llama_sampler_init_grammar_lazy(
     ffi.Pointer<llama_vocab> vocab,
     ffi.Pointer<ffi.Char> grammar_str,
@@ -13720,6 +13717,50 @@ class LlamaBindings {
               ffi.Size)>>('llama_sampler_init_grammar_lazy');
   late final _llama_sampler_init_grammar_lazy =
       _llama_sampler_init_grammar_lazyPtr.asFunction<
+          ffi.Pointer<llama_sampler> Function(
+              ffi.Pointer<llama_vocab>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              int,
+              ffi.Pointer<llama_token>,
+              int)>();
+
+  /// @details Lazy grammar sampler, introduced in https://github.com/ggml-org/llama.cpp/pull/9639
+  /// @param trigger_patterns A list of patterns that will trigger the grammar sampler. Pattern will be matched from the start of the generation output, and grammar sampler will be fed content starting from its first match group.
+  /// @param trigger_tokens A list of tokens that will trigger the grammar sampler. Grammar sampler will be fed content starting from the trigger token included.
+  ffi.Pointer<llama_sampler> llama_sampler_init_grammar_lazy_patterns(
+    ffi.Pointer<llama_vocab> vocab,
+    ffi.Pointer<ffi.Char> grammar_str,
+    ffi.Pointer<ffi.Char> grammar_root,
+    ffi.Pointer<ffi.Pointer<ffi.Char>> trigger_patterns,
+    int num_trigger_patterns,
+    ffi.Pointer<llama_token> trigger_tokens,
+    int num_trigger_tokens,
+  ) {
+    return _llama_sampler_init_grammar_lazy_patterns(
+      vocab,
+      grammar_str,
+      grammar_root,
+      trigger_patterns,
+      num_trigger_patterns,
+      trigger_tokens,
+      num_trigger_tokens,
+    );
+  }
+
+  late final _llama_sampler_init_grammar_lazy_patternsPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<llama_sampler> Function(
+              ffi.Pointer<llama_vocab>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Char>,
+              ffi.Pointer<ffi.Pointer<ffi.Char>>,
+              ffi.Size,
+              ffi.Pointer<llama_token>,
+              ffi.Size)>>('llama_sampler_init_grammar_lazy_patterns');
+  late final _llama_sampler_init_grammar_lazy_patterns =
+      _llama_sampler_init_grammar_lazy_patternsPtr.asFunction<
           ffi.Pointer<llama_sampler> Function(
               ffi.Pointer<llama_vocab>,
               ffi.Pointer<ffi.Char>,
