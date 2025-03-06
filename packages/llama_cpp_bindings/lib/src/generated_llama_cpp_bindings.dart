@@ -10359,6 +10359,15 @@ class LlamaBindings {
   late final _ggml_cpu_has_avx2 =
       _ggml_cpu_has_avx2Ptr.asFunction<int Function()>();
 
+  int ggml_cpu_has_bmi2() {
+    return _ggml_cpu_has_bmi2();
+  }
+
+  late final _ggml_cpu_has_bmi2Ptr =
+      _lookup<ffi.NativeFunction<ffi.Int Function()>>('ggml_cpu_has_bmi2');
+  late final _ggml_cpu_has_bmi2 =
+      _ggml_cpu_has_bmi2Ptr.asFunction<int Function()>();
+
   int ggml_cpu_has_f16c() {
     return _ggml_cpu_has_f16c();
   }
