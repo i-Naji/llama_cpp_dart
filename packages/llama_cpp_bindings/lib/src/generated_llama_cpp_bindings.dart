@@ -12589,6 +12589,23 @@ class LlamaBindings {
   late final _llama_set_causal_attn = _llama_set_causal_attnPtr
       .asFunction<void Function(ffi.Pointer<llama_context>, bool)>();
 
+  void llama_set_warmup(
+    ffi.Pointer<llama_context> ctx,
+    bool warmup,
+  ) {
+    return _llama_set_warmup(
+      ctx,
+      warmup,
+    );
+  }
+
+  late final _llama_set_warmupPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(
+              ffi.Pointer<llama_context>, ffi.Bool)>>('llama_set_warmup');
+  late final _llama_set_warmup = _llama_set_warmupPtr
+      .asFunction<void Function(ffi.Pointer<llama_context>, bool)>();
+
   void llama_set_abort_callback(
     ffi.Pointer<llama_context> ctx,
     ggml_abort_callback abort_callback,
