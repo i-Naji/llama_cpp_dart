@@ -27,20 +27,24 @@ jobs:
         run: |
           if [ -f last_commit.txt ]; then
             echo "last_commit=$(cat last_commit.txt)" >> $GITHUB_OUTPUT
+            if [ "$(cat last_commit.txt)" = "${{ steps.get-latest-tag.outputs.llama_tag }}" ]; then
+              echo "is_new=false" >> $GITHUB_OUTPUT
+            else
+              echo "is_new=true" >> $GITHUB_OUTPUT
+            fi
           else
             echo "last_commit=initial" >> $GITHUB_OUTPUT
+            echo "is_new=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Skip if no new commits
-        if: ${{ steps.get-latest-tag.outputs.llama_tag == steps.versions.outputs.last_commit }}
-        run: exit 1
-
       - name: add last_commit
+        if: ${{ steps.versions.outputs.is_new == 'true' }}
         run: |
           echo "${{ steps.get-latest-tag.outputs.llama_tag }}" > last_commit.txt
           git add last_commit.txt
 
       - name: Checkout llama.cpp repository at the latest tag
+        if: ${{ steps.versions.outputs.is_new == 'true' }}
         uses: actions/checkout@v4
         with:
           repository: ggml-org/llama.cpp
@@ -48,11 +52,13 @@ jobs:
           path: llama.cpp
 
       - name: Setup dart
+        if: ${{ steps.versions.outputs.is_new == 'true' }}
         uses: dart-lang/setup-dart@v1
         with:
           sdk: stable
 
       - name: Install dependencies
+        if: ${{ steps.versions.outputs.is_new == 'true' }}
         run: |
           sudo apt-get update
           sudo apt-get install -y libclang-dev
@@ -60,6 +66,7 @@ jobs:
           dart pub get
 
       - name: Generate FFI bindings
+        if: ${{ steps.versions.outputs.is_new == 'true' }}
         run: |
           cd packages/llama_cpp_bindings
           dart run ffigen
@@ -97,6 +104,7 @@ jobs:
           LLAMA_LIB_DIR: ${{ github.workspace }}/llama.cpp/build/bin
 
       - name: Commit and push changes
+        if: ${{ steps.versions.outputs.is_new == 'true' }}
         run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
