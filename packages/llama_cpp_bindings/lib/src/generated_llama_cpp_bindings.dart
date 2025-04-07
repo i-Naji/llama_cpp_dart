@@ -13995,6 +13995,10 @@ class LlamaBindings {
       _llama_sampler_init_mirostat_v2Ptr.asFunction<
           ffi.Pointer<llama_sampler> Function(int, double, double)>();
 
+  /// @details Intializes a GBNF grammar, see grammars/README.md for details.
+  /// @param vocab The vocabulary that this grammar will be used with.
+  /// @param grammar_str The production rules for the grammar, encoded as a string. Returns an empty grammar if empty. Returns NULL if parsing of grammar_str fails.
+  /// @param grammar_root The name of the start symbol for the grammar.
   ffi.Pointer<llama_sampler> llama_sampler_init_grammar(
     ffi.Pointer<llama_vocab> vocab,
     ffi.Pointer<ffi.Char> grammar_str,
@@ -15795,7 +15799,10 @@ enum llama_vocab_pre_type {
   LLAMA_VOCAB_PRE_TYPE_CHAMELEON(26),
   LLAMA_VOCAB_PRE_TYPE_MINERVA(27),
   LLAMA_VOCAB_PRE_TYPE_DEEPSEEK3_LLM(28),
-  LLAMA_VOCAB_PRE_TYPE_GPT4O(29);
+  LLAMA_VOCAB_PRE_TYPE_GPT4O(29),
+  LLAMA_VOCAB_PRE_TYPE_SUPERBPE(30),
+  LLAMA_VOCAB_PRE_TYPE_TRILLION(31),
+  LLAMA_VOCAB_PRE_TYPE_BAILINGMOE(32);
 
   final int value;
   const llama_vocab_pre_type(this.value);
@@ -15831,6 +15838,9 @@ enum llama_vocab_pre_type {
         27 => LLAMA_VOCAB_PRE_TYPE_MINERVA,
         28 => LLAMA_VOCAB_PRE_TYPE_DEEPSEEK3_LLM,
         29 => LLAMA_VOCAB_PRE_TYPE_GPT4O,
+        30 => LLAMA_VOCAB_PRE_TYPE_SUPERBPE,
+        31 => LLAMA_VOCAB_PRE_TYPE_TRILLION,
+        32 => LLAMA_VOCAB_PRE_TYPE_BAILINGMOE,
         _ =>
           throw ArgumentError("Unknown value for llama_vocab_pre_type: $value"),
       };
@@ -16145,8 +16155,16 @@ final class llama_model_kv_override extends ffi.Struct {
   external UnnamedUnion2 unnamed;
 }
 
+final class llama_model_tensor_buft_override extends ffi.Struct {
+  external ffi.Pointer<ffi.Char> pattern;
+
+  external ggml_backend_buffer_type_t buft;
+}
+
 final class llama_model_params extends ffi.Struct {
   external ffi.Pointer<ggml_backend_dev_t> devices;
+
+  external ffi.Pointer<llama_model_tensor_buft_override> tensor_buft_overrides;
 
   @ffi.Int32()
   external int n_gpu_layers;
