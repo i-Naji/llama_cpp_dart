@@ -6288,21 +6288,26 @@ class LlamaBindings {
     ffi.Pointer<ggml_context> ctx,
     ffi.Pointer<ggml_tensor> a,
     int scale_factor,
+    ggml_scale_mode mode,
   ) {
     return _ggml_upscale(
       ctx,
       a,
       scale_factor,
+      mode.value,
     );
   }
 
   late final _ggml_upscalePtr = _lookup<
       ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>, ffi.Int)>>('ggml_upscale');
+          ffi.Pointer<ggml_tensor> Function(
+              ffi.Pointer<ggml_context>,
+              ffi.Pointer<ggml_tensor>,
+              ffi.Int,
+              ffi.UnsignedInt)>>('ggml_upscale');
   late final _ggml_upscale = _ggml_upscalePtr.asFunction<
       ffi.Pointer<ggml_tensor> Function(
-          ffi.Pointer<ggml_context>, ffi.Pointer<ggml_tensor>, int)>();
+          ffi.Pointer<ggml_context>, ffi.Pointer<ggml_tensor>, int, int)>();
 
   ffi.Pointer<ggml_tensor> ggml_upscale_ext(
     ffi.Pointer<ggml_context> ctx,
@@ -6311,6 +6316,7 @@ class LlamaBindings {
     int ne1,
     int ne2,
     int ne3,
+    ggml_scale_mode mode,
   ) {
     return _ggml_upscale_ext(
       ctx,
@@ -6319,6 +6325,7 @@ class LlamaBindings {
       ne1,
       ne2,
       ne3,
+      mode.value,
     );
   }
 
@@ -6330,10 +6337,11 @@ class LlamaBindings {
               ffi.Int,
               ffi.Int,
               ffi.Int,
-              ffi.Int)>>('ggml_upscale_ext');
+              ffi.Int,
+              ffi.UnsignedInt)>>('ggml_upscale_ext');
   late final _ggml_upscale_ext = _ggml_upscale_extPtr.asFunction<
       ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_context>,
-          ffi.Pointer<ggml_tensor>, int, int, int, int)>();
+          ffi.Pointer<ggml_tensor>, int, int, int, int, int)>();
 
   ffi.Pointer<ggml_tensor> ggml_pad(
     ffi.Pointer<ggml_context> ctx,
@@ -6945,275 +6953,6 @@ class LlamaBindings {
           ffi.Pointer<ggml_tensor>,
           ffi.Pointer<ggml_tensor>)>();
 
-  ffi.Pointer<ggml_tensor> ggml_map_unary_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ggml_unary_op_f32_t fun,
-  ) {
-    return _ggml_map_unary_f32(
-      ctx,
-      a,
-      fun,
-    );
-  }
-
-  late final _ggml_map_unary_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_unary_op_f32_t)>>('ggml_map_unary_f32');
-  late final _ggml_map_unary_f32 = _ggml_map_unary_f32Ptr.asFunction<
-      ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_context>,
-          ffi.Pointer<ggml_tensor>, ggml_unary_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_unary_inplace_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ggml_unary_op_f32_t fun,
-  ) {
-    return _ggml_map_unary_inplace_f32(
-      ctx,
-      a,
-      fun,
-    );
-  }
-
-  late final _ggml_map_unary_inplace_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_unary_op_f32_t)>>('ggml_map_unary_inplace_f32');
-  late final _ggml_map_unary_inplace_f32 =
-      _ggml_map_unary_inplace_f32Ptr.asFunction<
-          ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>, ggml_unary_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_binary_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ffi.Pointer<ggml_tensor> b,
-    ggml_binary_op_f32_t fun,
-  ) {
-    return _ggml_map_binary_f32(
-      ctx,
-      a,
-      b,
-      fun,
-    );
-  }
-
-  late final _ggml_map_binary_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_binary_op_f32_t)>>('ggml_map_binary_f32');
-  late final _ggml_map_binary_f32 = _ggml_map_binary_f32Ptr.asFunction<
-      ffi.Pointer<ggml_tensor> Function(
-          ffi.Pointer<ggml_context>,
-          ffi.Pointer<ggml_tensor>,
-          ffi.Pointer<ggml_tensor>,
-          ggml_binary_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_binary_inplace_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ffi.Pointer<ggml_tensor> b,
-    ggml_binary_op_f32_t fun,
-  ) {
-    return _ggml_map_binary_inplace_f32(
-      ctx,
-      a,
-      b,
-      fun,
-    );
-  }
-
-  late final _ggml_map_binary_inplace_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_binary_op_f32_t)>>('ggml_map_binary_inplace_f32');
-  late final _ggml_map_binary_inplace_f32 =
-      _ggml_map_binary_inplace_f32Ptr.asFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_binary_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_custom1_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ggml_custom1_op_f32_t fun,
-  ) {
-    return _ggml_map_custom1_f32(
-      ctx,
-      a,
-      fun,
-    );
-  }
-
-  late final _ggml_map_custom1_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_custom1_op_f32_t)>>('ggml_map_custom1_f32');
-  late final _ggml_map_custom1_f32 = _ggml_map_custom1_f32Ptr.asFunction<
-      ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_context>,
-          ffi.Pointer<ggml_tensor>, ggml_custom1_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_custom1_inplace_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ggml_custom1_op_f32_t fun,
-  ) {
-    return _ggml_map_custom1_inplace_f32(
-      ctx,
-      a,
-      fun,
-    );
-  }
-
-  late final _ggml_map_custom1_inplace_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_custom1_op_f32_t)>>('ggml_map_custom1_inplace_f32');
-  late final _ggml_map_custom1_inplace_f32 =
-      _ggml_map_custom1_inplace_f32Ptr.asFunction<
-          ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>, ggml_custom1_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_custom2_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ffi.Pointer<ggml_tensor> b,
-    ggml_custom2_op_f32_t fun,
-  ) {
-    return _ggml_map_custom2_f32(
-      ctx,
-      a,
-      b,
-      fun,
-    );
-  }
-
-  late final _ggml_map_custom2_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_custom2_op_f32_t)>>('ggml_map_custom2_f32');
-  late final _ggml_map_custom2_f32 = _ggml_map_custom2_f32Ptr.asFunction<
-      ffi.Pointer<ggml_tensor> Function(
-          ffi.Pointer<ggml_context>,
-          ffi.Pointer<ggml_tensor>,
-          ffi.Pointer<ggml_tensor>,
-          ggml_custom2_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_custom2_inplace_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ffi.Pointer<ggml_tensor> b,
-    ggml_custom2_op_f32_t fun,
-  ) {
-    return _ggml_map_custom2_inplace_f32(
-      ctx,
-      a,
-      b,
-      fun,
-    );
-  }
-
-  late final _ggml_map_custom2_inplace_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_custom2_op_f32_t)>>('ggml_map_custom2_inplace_f32');
-  late final _ggml_map_custom2_inplace_f32 =
-      _ggml_map_custom2_inplace_f32Ptr.asFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_custom2_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_custom3_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ffi.Pointer<ggml_tensor> b,
-    ffi.Pointer<ggml_tensor> c,
-    ggml_custom3_op_f32_t fun,
-  ) {
-    return _ggml_map_custom3_f32(
-      ctx,
-      a,
-      b,
-      c,
-      fun,
-    );
-  }
-
-  late final _ggml_map_custom3_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_custom3_op_f32_t)>>('ggml_map_custom3_f32');
-  late final _ggml_map_custom3_f32 = _ggml_map_custom3_f32Ptr.asFunction<
-      ffi.Pointer<ggml_tensor> Function(
-          ffi.Pointer<ggml_context>,
-          ffi.Pointer<ggml_tensor>,
-          ffi.Pointer<ggml_tensor>,
-          ffi.Pointer<ggml_tensor>,
-          ggml_custom3_op_f32_t)>();
-
-  ffi.Pointer<ggml_tensor> ggml_map_custom3_inplace_f32(
-    ffi.Pointer<ggml_context> ctx,
-    ffi.Pointer<ggml_tensor> a,
-    ffi.Pointer<ggml_tensor> b,
-    ffi.Pointer<ggml_tensor> c,
-    ggml_custom3_op_f32_t fun,
-  ) {
-    return _ggml_map_custom3_inplace_f32(
-      ctx,
-      a,
-      b,
-      c,
-      fun,
-    );
-  }
-
-  late final _ggml_map_custom3_inplace_f32Ptr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_custom3_op_f32_t)>>('ggml_map_custom3_inplace_f32');
-  late final _ggml_map_custom3_inplace_f32 =
-      _ggml_map_custom3_inplace_f32Ptr.asFunction<
-          ffi.Pointer<ggml_tensor> Function(
-              ffi.Pointer<ggml_context>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ffi.Pointer<ggml_tensor>,
-              ggml_custom3_op_f32_t)>();
-
   ffi.Pointer<ggml_tensor> ggml_map_custom1(
     ffi.Pointer<ggml_context> ctx,
     ffi.Pointer<ggml_tensor> a,
@@ -7432,6 +7171,102 @@ class LlamaBindings {
               ggml_custom3_op_t,
               int,
               ffi.Pointer<ffi.Void>)>();
+
+  ffi.Pointer<ggml_tensor> ggml_custom_4d(
+    ffi.Pointer<ggml_context> ctx,
+    ggml_type type,
+    int ne0,
+    int ne1,
+    int ne2,
+    int ne3,
+    ffi.Pointer<ffi.Pointer<ggml_tensor>> args,
+    int n_args,
+    ggml_custom_op_t fun,
+    int n_tasks,
+    ffi.Pointer<ffi.Void> userdata,
+  ) {
+    return _ggml_custom_4d(
+      ctx,
+      type.value,
+      ne0,
+      ne1,
+      ne2,
+      ne3,
+      args,
+      n_args,
+      fun,
+      n_tasks,
+      userdata,
+    );
+  }
+
+  late final _ggml_custom_4dPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(
+              ffi.Pointer<ggml_context>,
+              ffi.UnsignedInt,
+              ffi.Int64,
+              ffi.Int64,
+              ffi.Int64,
+              ffi.Int64,
+              ffi.Pointer<ffi.Pointer<ggml_tensor>>,
+              ffi.Int,
+              ggml_custom_op_t,
+              ffi.Int,
+              ffi.Pointer<ffi.Void>)>>('ggml_custom_4d');
+  late final _ggml_custom_4d = _ggml_custom_4dPtr.asFunction<
+      ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>,
+          int,
+          int,
+          int,
+          int,
+          int,
+          ffi.Pointer<ffi.Pointer<ggml_tensor>>,
+          int,
+          ggml_custom_op_t,
+          int,
+          ffi.Pointer<ffi.Void>)>();
+
+  ffi.Pointer<ggml_tensor> ggml_custom_inplace(
+    ffi.Pointer<ggml_context> ctx,
+    ffi.Pointer<ggml_tensor> a,
+    ffi.Pointer<ffi.Pointer<ggml_tensor>> args,
+    int n_args,
+    ggml_custom_op_t fun,
+    int n_tasks,
+    ffi.Pointer<ffi.Void> userdata,
+  ) {
+    return _ggml_custom_inplace(
+      ctx,
+      a,
+      args,
+      n_args,
+      fun,
+      n_tasks,
+      userdata,
+    );
+  }
+
+  late final _ggml_custom_inplacePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(
+              ffi.Pointer<ggml_context>,
+              ffi.Pointer<ggml_tensor>,
+              ffi.Pointer<ffi.Pointer<ggml_tensor>>,
+              ffi.Int,
+              ggml_custom_op_t,
+              ffi.Int,
+              ffi.Pointer<ffi.Void>)>>('ggml_custom_inplace');
+  late final _ggml_custom_inplace = _ggml_custom_inplacePtr.asFunction<
+      ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>,
+          ffi.Pointer<ggml_tensor>,
+          ffi.Pointer<ffi.Pointer<ggml_tensor>>,
+          int,
+          ggml_custom_op_t,
+          int,
+          ffi.Pointer<ffi.Void>)>();
 
   ffi.Pointer<ggml_tensor> ggml_cross_entropy_loss(
     ffi.Pointer<ggml_context> ctx,
@@ -14947,18 +14782,14 @@ enum ggml_op {
   GGML_OP_GATED_LINEAR_ATTN(71),
   GGML_OP_RWKV_WKV7(72),
   GGML_OP_UNARY(73),
-  GGML_OP_MAP_UNARY(74),
-  GGML_OP_MAP_BINARY(75),
-  GGML_OP_MAP_CUSTOM1_F32(76),
-  GGML_OP_MAP_CUSTOM2_F32(77),
-  GGML_OP_MAP_CUSTOM3_F32(78),
-  GGML_OP_MAP_CUSTOM1(79),
-  GGML_OP_MAP_CUSTOM2(80),
-  GGML_OP_MAP_CUSTOM3(81),
-  GGML_OP_CROSS_ENTROPY_LOSS(82),
-  GGML_OP_CROSS_ENTROPY_LOSS_BACK(83),
-  GGML_OP_OPT_STEP_ADAMW(84),
-  GGML_OP_COUNT(85);
+  GGML_OP_MAP_CUSTOM1(74),
+  GGML_OP_MAP_CUSTOM2(75),
+  GGML_OP_MAP_CUSTOM3(76),
+  GGML_OP_CUSTOM(77),
+  GGML_OP_CROSS_ENTROPY_LOSS(78),
+  GGML_OP_CROSS_ENTROPY_LOSS_BACK(79),
+  GGML_OP_OPT_STEP_ADAMW(80),
+  GGML_OP_COUNT(81);
 
   final int value;
   const ggml_op(this.value);
@@ -15038,18 +14869,14 @@ enum ggml_op {
         71 => GGML_OP_GATED_LINEAR_ATTN,
         72 => GGML_OP_RWKV_WKV7,
         73 => GGML_OP_UNARY,
-        74 => GGML_OP_MAP_UNARY,
-        75 => GGML_OP_MAP_BINARY,
-        76 => GGML_OP_MAP_CUSTOM1_F32,
-        77 => GGML_OP_MAP_CUSTOM2_F32,
-        78 => GGML_OP_MAP_CUSTOM3_F32,
-        79 => GGML_OP_MAP_CUSTOM1,
-        80 => GGML_OP_MAP_CUSTOM2,
-        81 => GGML_OP_MAP_CUSTOM3,
-        82 => GGML_OP_CROSS_ENTROPY_LOSS,
-        83 => GGML_OP_CROSS_ENTROPY_LOSS_BACK,
-        84 => GGML_OP_OPT_STEP_ADAMW,
-        85 => GGML_OP_COUNT,
+        74 => GGML_OP_MAP_CUSTOM1,
+        75 => GGML_OP_MAP_CUSTOM2,
+        76 => GGML_OP_MAP_CUSTOM3,
+        77 => GGML_OP_CUSTOM,
+        78 => GGML_OP_CROSS_ENTROPY_LOSS,
+        79 => GGML_OP_CROSS_ENTROPY_LOSS_BACK,
+        80 => GGML_OP_OPT_STEP_ADAMW,
+        81 => GGML_OP_COUNT,
         _ => throw ArgumentError("Unknown value for ggml_op: $value"),
       };
 }
@@ -15230,6 +15057,20 @@ enum ggml_op_pool {
       };
 }
 
+enum ggml_scale_mode {
+  GGML_SCALE_MODE_NEAREST(0),
+  GGML_SCALE_MODE_BILINEAR(1);
+
+  final int value;
+  const ggml_scale_mode(this.value);
+
+  static ggml_scale_mode fromValue(int value) => switch (value) {
+        0 => GGML_SCALE_MODE_NEAREST,
+        1 => GGML_SCALE_MODE_BILINEAR,
+        _ => throw ArgumentError("Unknown value for ggml_scale_mode: $value"),
+      };
+}
+
 enum ggml_sort_order {
   GGML_SORT_ORDER_ASC(0),
   GGML_SORT_ORDER_DESC(1);
@@ -15244,46 +15085,6 @@ enum ggml_sort_order {
       };
 }
 
-typedef ggml_unary_op_f32_tFunction = ffi.Void Function(
-    ffi.Int, ffi.Pointer<ffi.Float>, ffi.Pointer<ffi.Float>);
-typedef Dartggml_unary_op_f32_tFunction = void Function(
-    int, ffi.Pointer<ffi.Float>, ffi.Pointer<ffi.Float>);
-typedef ggml_unary_op_f32_t
-    = ffi.Pointer<ffi.NativeFunction<ggml_unary_op_f32_tFunction>>;
-typedef ggml_binary_op_f32_tFunction = ffi.Void Function(ffi.Int,
-    ffi.Pointer<ffi.Float>, ffi.Pointer<ffi.Float>, ffi.Pointer<ffi.Float>);
-typedef Dartggml_binary_op_f32_tFunction = void Function(int,
-    ffi.Pointer<ffi.Float>, ffi.Pointer<ffi.Float>, ffi.Pointer<ffi.Float>);
-typedef ggml_binary_op_f32_t
-    = ffi.Pointer<ffi.NativeFunction<ggml_binary_op_f32_tFunction>>;
-typedef ggml_custom1_op_f32_tFunction = ffi.Void Function(
-    ffi.Pointer<ggml_tensor>, ffi.Pointer<ggml_tensor>);
-typedef Dartggml_custom1_op_f32_tFunction = void Function(
-    ffi.Pointer<ggml_tensor>, ffi.Pointer<ggml_tensor>);
-typedef ggml_custom1_op_f32_t
-    = ffi.Pointer<ffi.NativeFunction<ggml_custom1_op_f32_tFunction>>;
-typedef ggml_custom2_op_f32_tFunction = ffi.Void Function(
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>);
-typedef Dartggml_custom2_op_f32_tFunction = void Function(
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>);
-typedef ggml_custom2_op_f32_t
-    = ffi.Pointer<ffi.NativeFunction<ggml_custom2_op_f32_tFunction>>;
-typedef ggml_custom3_op_f32_tFunction = ffi.Void Function(
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>);
-typedef Dartggml_custom3_op_f32_tFunction = void Function(
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>,
-    ffi.Pointer<ggml_tensor>);
-typedef ggml_custom3_op_f32_t
-    = ffi.Pointer<ffi.NativeFunction<ggml_custom3_op_f32_tFunction>>;
 typedef ggml_custom1_op_tFunction = ffi.Void Function(
     ffi.Pointer<ggml_tensor> dst,
     ffi.Pointer<ggml_tensor> a,
@@ -15332,6 +15133,18 @@ typedef Dartggml_custom3_op_tFunction = void Function(
     ffi.Pointer<ffi.Void> userdata);
 typedef ggml_custom3_op_t
     = ffi.Pointer<ffi.NativeFunction<ggml_custom3_op_tFunction>>;
+typedef ggml_custom_op_tFunction = ffi.Void Function(
+    ffi.Pointer<ggml_tensor> dst,
+    ffi.Int ith,
+    ffi.Int nth,
+    ffi.Pointer<ffi.Void> userdata);
+typedef Dartggml_custom_op_tFunction = void Function(
+    ffi.Pointer<ggml_tensor> dst,
+    int ith,
+    int nth,
+    ffi.Pointer<ffi.Void> userdata);
+typedef ggml_custom_op_t
+    = ffi.Pointer<ffi.NativeFunction<ggml_custom_op_tFunction>>;
 typedef ggml_log_callbackFunction = ffi.Void Function(ffi.UnsignedInt level,
     ffi.Pointer<ffi.Char> text, ffi.Pointer<ffi.Void> user_data);
 typedef Dartggml_log_callbackFunction = void Function(ggml_log_level level,
