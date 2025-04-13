@@ -16148,6 +16148,8 @@ final class llama_model_quantize_params extends ffi.Struct {
   external ffi.Pointer<ffi.Void> imatrix;
 
   external ffi.Pointer<ffi.Void> kv_overrides;
+
+  external ffi.Pointer<ffi.Void> tensor_types;
 }
 
 final class llama_logit_bias extends ffi.Struct {
