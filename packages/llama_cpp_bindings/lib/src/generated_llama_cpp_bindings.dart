@@ -15616,7 +15616,8 @@ enum llama_vocab_pre_type {
   LLAMA_VOCAB_PRE_TYPE_SUPERBPE(30),
   LLAMA_VOCAB_PRE_TYPE_TRILLION(31),
   LLAMA_VOCAB_PRE_TYPE_BAILINGMOE(32),
-  LLAMA_VOCAB_PRE_TYPE_LLAMA4(33);
+  LLAMA_VOCAB_PRE_TYPE_LLAMA4(33),
+  LLAMA_VOCAB_PRE_TYPE_PIXTRAL(34);
 
   final int value;
   const llama_vocab_pre_type(this.value);
@@ -15656,6 +15657,7 @@ enum llama_vocab_pre_type {
         31 => LLAMA_VOCAB_PRE_TYPE_TRILLION,
         32 => LLAMA_VOCAB_PRE_TYPE_BAILINGMOE,
         33 => LLAMA_VOCAB_PRE_TYPE_LLAMA4,
+        34 => LLAMA_VOCAB_PRE_TYPE_PIXTRAL,
         _ =>
           throw ArgumentError("Unknown value for llama_vocab_pre_type: $value"),
       };
