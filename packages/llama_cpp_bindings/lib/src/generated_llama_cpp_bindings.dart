@@ -2076,6 +2076,20 @@ class LlamaBindings {
   late final _ggml_is_contiguous_2 = _ggml_is_contiguous_2Ptr
       .asFunction<bool Function(ffi.Pointer<ggml_tensor>)>();
 
+  bool ggml_is_contiguous_channels(
+    ffi.Pointer<ggml_tensor> tensor,
+  ) {
+    return _ggml_is_contiguous_channels(
+      tensor,
+    );
+  }
+
+  late final _ggml_is_contiguous_channelsPtr =
+      _lookup<ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<ggml_tensor>)>>(
+          'ggml_is_contiguous_channels');
+  late final _ggml_is_contiguous_channels = _ggml_is_contiguous_channelsPtr
+      .asFunction<bool Function(ffi.Pointer<ggml_tensor>)>();
+
   bool ggml_are_same_shape(
     ffi.Pointer<ggml_tensor> t0,
     ffi.Pointer<ggml_tensor> t1,
@@ -6124,6 +6138,54 @@ class LlamaBindings {
               ffi.Int,
               ffi.Int)>>('ggml_conv_2d_dw');
   late final _ggml_conv_2d_dw = _ggml_conv_2d_dwPtr.asFunction<
+      ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>,
+          ffi.Pointer<ggml_tensor>,
+          ffi.Pointer<ggml_tensor>,
+          int,
+          int,
+          int,
+          int,
+          int,
+          int)>();
+
+  ffi.Pointer<ggml_tensor> ggml_conv_2d_dw_direct(
+    ffi.Pointer<ggml_context> ctx,
+    ffi.Pointer<ggml_tensor> a,
+    ffi.Pointer<ggml_tensor> b,
+    int stride0,
+    int stride1,
+    int pad0,
+    int pad1,
+    int dilation0,
+    int dilation1,
+  ) {
+    return _ggml_conv_2d_dw_direct(
+      ctx,
+      a,
+      b,
+      stride0,
+      stride1,
+      pad0,
+      pad1,
+      dilation0,
+      dilation1,
+    );
+  }
+
+  late final _ggml_conv_2d_dw_directPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(
+              ffi.Pointer<ggml_context>,
+              ffi.Pointer<ggml_tensor>,
+              ffi.Pointer<ggml_tensor>,
+              ffi.Int,
+              ffi.Int,
+              ffi.Int,
+              ffi.Int,
+              ffi.Int,
+              ffi.Int)>>('ggml_conv_2d_dw_direct');
+  late final _ggml_conv_2d_dw_direct = _ggml_conv_2d_dw_directPtr.asFunction<
       ffi.Pointer<ggml_tensor> Function(
           ffi.Pointer<ggml_context>,
           ffi.Pointer<ggml_tensor>,
@@ -14759,37 +14821,38 @@ enum ggml_op {
   GGML_OP_CONV_TRANSPOSE_1D(48),
   GGML_OP_IM2COL(49),
   GGML_OP_IM2COL_BACK(50),
-  GGML_OP_CONV_TRANSPOSE_2D(51),
-  GGML_OP_POOL_1D(52),
-  GGML_OP_POOL_2D(53),
-  GGML_OP_POOL_2D_BACK(54),
-  GGML_OP_UPSCALE(55),
-  GGML_OP_PAD(56),
-  GGML_OP_PAD_REFLECT_1D(57),
-  GGML_OP_ARANGE(58),
-  GGML_OP_TIMESTEP_EMBEDDING(59),
-  GGML_OP_ARGSORT(60),
-  GGML_OP_LEAKY_RELU(61),
-  GGML_OP_FLASH_ATTN_EXT(62),
-  GGML_OP_FLASH_ATTN_BACK(63),
-  GGML_OP_SSM_CONV(64),
-  GGML_OP_SSM_SCAN(65),
-  GGML_OP_WIN_PART(66),
-  GGML_OP_WIN_UNPART(67),
-  GGML_OP_GET_REL_POS(68),
-  GGML_OP_ADD_REL_POS(69),
-  GGML_OP_RWKV_WKV6(70),
-  GGML_OP_GATED_LINEAR_ATTN(71),
-  GGML_OP_RWKV_WKV7(72),
-  GGML_OP_UNARY(73),
-  GGML_OP_MAP_CUSTOM1(74),
-  GGML_OP_MAP_CUSTOM2(75),
-  GGML_OP_MAP_CUSTOM3(76),
-  GGML_OP_CUSTOM(77),
-  GGML_OP_CROSS_ENTROPY_LOSS(78),
-  GGML_OP_CROSS_ENTROPY_LOSS_BACK(79),
-  GGML_OP_OPT_STEP_ADAMW(80),
-  GGML_OP_COUNT(81);
+  GGML_OP_CONV_2D_DW(51),
+  GGML_OP_CONV_TRANSPOSE_2D(52),
+  GGML_OP_POOL_1D(53),
+  GGML_OP_POOL_2D(54),
+  GGML_OP_POOL_2D_BACK(55),
+  GGML_OP_UPSCALE(56),
+  GGML_OP_PAD(57),
+  GGML_OP_PAD_REFLECT_1D(58),
+  GGML_OP_ARANGE(59),
+  GGML_OP_TIMESTEP_EMBEDDING(60),
+  GGML_OP_ARGSORT(61),
+  GGML_OP_LEAKY_RELU(62),
+  GGML_OP_FLASH_ATTN_EXT(63),
+  GGML_OP_FLASH_ATTN_BACK(64),
+  GGML_OP_SSM_CONV(65),
+  GGML_OP_SSM_SCAN(66),
+  GGML_OP_WIN_PART(67),
+  GGML_OP_WIN_UNPART(68),
+  GGML_OP_GET_REL_POS(69),
+  GGML_OP_ADD_REL_POS(70),
+  GGML_OP_RWKV_WKV6(71),
+  GGML_OP_GATED_LINEAR_ATTN(72),
+  GGML_OP_RWKV_WKV7(73),
+  GGML_OP_UNARY(74),
+  GGML_OP_MAP_CUSTOM1(75),
+  GGML_OP_MAP_CUSTOM2(76),
+  GGML_OP_MAP_CUSTOM3(77),
+  GGML_OP_CUSTOM(78),
+  GGML_OP_CROSS_ENTROPY_LOSS(79),
+  GGML_OP_CROSS_ENTROPY_LOSS_BACK(80),
+  GGML_OP_OPT_STEP_ADAMW(81),
+  GGML_OP_COUNT(82);
 
   final int value;
   const ggml_op(this.value);
@@ -14846,37 +14909,38 @@ enum ggml_op {
         48 => GGML_OP_CONV_TRANSPOSE_1D,
         49 => GGML_OP_IM2COL,
         50 => GGML_OP_IM2COL_BACK,
-        51 => GGML_OP_CONV_TRANSPOSE_2D,
-        52 => GGML_OP_POOL_1D,
-        53 => GGML_OP_POOL_2D,
-        54 => GGML_OP_POOL_2D_BACK,
-        55 => GGML_OP_UPSCALE,
-        56 => GGML_OP_PAD,
-        57 => GGML_OP_PAD_REFLECT_1D,
-        58 => GGML_OP_ARANGE,
-        59 => GGML_OP_TIMESTEP_EMBEDDING,
-        60 => GGML_OP_ARGSORT,
-        61 => GGML_OP_LEAKY_RELU,
-        62 => GGML_OP_FLASH_ATTN_EXT,
-        63 => GGML_OP_FLASH_ATTN_BACK,
-        64 => GGML_OP_SSM_CONV,
-        65 => GGML_OP_SSM_SCAN,
-        66 => GGML_OP_WIN_PART,
-        67 => GGML_OP_WIN_UNPART,
-        68 => GGML_OP_GET_REL_POS,
-        69 => GGML_OP_ADD_REL_POS,
-        70 => GGML_OP_RWKV_WKV6,
-        71 => GGML_OP_GATED_LINEAR_ATTN,
-        72 => GGML_OP_RWKV_WKV7,
-        73 => GGML_OP_UNARY,
-        74 => GGML_OP_MAP_CUSTOM1,
-        75 => GGML_OP_MAP_CUSTOM2,
-        76 => GGML_OP_MAP_CUSTOM3,
-        77 => GGML_OP_CUSTOM,
-        78 => GGML_OP_CROSS_ENTROPY_LOSS,
-        79 => GGML_OP_CROSS_ENTROPY_LOSS_BACK,
-        80 => GGML_OP_OPT_STEP_ADAMW,
-        81 => GGML_OP_COUNT,
+        51 => GGML_OP_CONV_2D_DW,
+        52 => GGML_OP_CONV_TRANSPOSE_2D,
+        53 => GGML_OP_POOL_1D,
+        54 => GGML_OP_POOL_2D,
+        55 => GGML_OP_POOL_2D_BACK,
+        56 => GGML_OP_UPSCALE,
+        57 => GGML_OP_PAD,
+        58 => GGML_OP_PAD_REFLECT_1D,
+        59 => GGML_OP_ARANGE,
+        60 => GGML_OP_TIMESTEP_EMBEDDING,
+        61 => GGML_OP_ARGSORT,
+        62 => GGML_OP_LEAKY_RELU,
+        63 => GGML_OP_FLASH_ATTN_EXT,
+        64 => GGML_OP_FLASH_ATTN_BACK,
+        65 => GGML_OP_SSM_CONV,
+        66 => GGML_OP_SSM_SCAN,
+        67 => GGML_OP_WIN_PART,
+        68 => GGML_OP_WIN_UNPART,
+        69 => GGML_OP_GET_REL_POS,
+        70 => GGML_OP_ADD_REL_POS,
+        71 => GGML_OP_RWKV_WKV6,
+        72 => GGML_OP_GATED_LINEAR_ATTN,
+        73 => GGML_OP_RWKV_WKV7,
+        74 => GGML_OP_UNARY,
+        75 => GGML_OP_MAP_CUSTOM1,
+        76 => GGML_OP_MAP_CUSTOM2,
+        77 => GGML_OP_MAP_CUSTOM3,
+        78 => GGML_OP_CUSTOM,
+        79 => GGML_OP_CROSS_ENTROPY_LOSS,
+        80 => GGML_OP_CROSS_ENTROPY_LOSS_BACK,
+        81 => GGML_OP_OPT_STEP_ADAMW,
+        82 => GGML_OP_COUNT,
         _ => throw ArgumentError("Unknown value for ggml_op: $value"),
       };
 }
