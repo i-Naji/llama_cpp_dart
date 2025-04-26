@@ -10646,6 +10646,82 @@ class LlamaBindings {
   late final _ggml_backend_cpu_reg =
       _ggml_backend_cpu_regPtr.asFunction<ggml_backend_reg_t Function()>();
 
+  void ggml_cpu_fp32_to_fp16(
+    ffi.Pointer<ffi.Float> arg0,
+    ffi.Pointer<ggml_fp16_t> arg1,
+    int arg2,
+  ) {
+    return _ggml_cpu_fp32_to_fp16(
+      arg0,
+      arg1,
+      arg2,
+    );
+  }
+
+  late final _ggml_cpu_fp32_to_fp16Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ffi.Float>, ffi.Pointer<ggml_fp16_t>,
+              ffi.Int64)>>('ggml_cpu_fp32_to_fp16');
+  late final _ggml_cpu_fp32_to_fp16 = _ggml_cpu_fp32_to_fp16Ptr.asFunction<
+      void Function(ffi.Pointer<ffi.Float>, ffi.Pointer<ggml_fp16_t>, int)>();
+
+  void ggml_cpu_fp16_to_fp32(
+    ffi.Pointer<ggml_fp16_t> arg0,
+    ffi.Pointer<ffi.Float> arg1,
+    int arg2,
+  ) {
+    return _ggml_cpu_fp16_to_fp32(
+      arg0,
+      arg1,
+      arg2,
+    );
+  }
+
+  late final _ggml_cpu_fp16_to_fp32Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ggml_fp16_t>, ffi.Pointer<ffi.Float>,
+              ffi.Int64)>>('ggml_cpu_fp16_to_fp32');
+  late final _ggml_cpu_fp16_to_fp32 = _ggml_cpu_fp16_to_fp32Ptr.asFunction<
+      void Function(ffi.Pointer<ggml_fp16_t>, ffi.Pointer<ffi.Float>, int)>();
+
+  void ggml_cpu_fp32_to_bf16(
+    ffi.Pointer<ffi.Float> arg0,
+    ffi.Pointer<ggml_bf16_t> arg1,
+    int arg2,
+  ) {
+    return _ggml_cpu_fp32_to_bf16(
+      arg0,
+      arg1,
+      arg2,
+    );
+  }
+
+  late final _ggml_cpu_fp32_to_bf16Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ffi.Float>, ffi.Pointer<ggml_bf16_t>,
+              ffi.Int64)>>('ggml_cpu_fp32_to_bf16');
+  late final _ggml_cpu_fp32_to_bf16 = _ggml_cpu_fp32_to_bf16Ptr.asFunction<
+      void Function(ffi.Pointer<ffi.Float>, ffi.Pointer<ggml_bf16_t>, int)>();
+
+  void ggml_cpu_bf16_to_fp32(
+    ffi.Pointer<ggml_bf16_t> arg0,
+    ffi.Pointer<ffi.Float> arg1,
+    int arg2,
+  ) {
+    return _ggml_cpu_bf16_to_fp32(
+      arg0,
+      arg1,
+      arg2,
+    );
+  }
+
+  late final _ggml_cpu_bf16_to_fp32Ptr = _lookup<
+      ffi.NativeFunction<
+          ffi.Void Function(ffi.Pointer<ggml_bf16_t>, ffi.Pointer<ffi.Float>,
+              ffi.Int64)>>('ggml_cpu_bf16_to_fp32');
+  late final _ggml_cpu_bf16_to_fp32 = _ggml_cpu_bf16_to_fp32Ptr.asFunction<
+      void Function(ffi.Pointer<ggml_bf16_t>, ffi.Pointer<ffi.Float>, int)>();
+
   llama_model_params llama_model_default_params() {
     return _llama_model_default_params();
   }
