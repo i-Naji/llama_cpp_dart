@@ -14775,14 +14775,14 @@ enum ggml_type {
 
 enum ggml_prec {
   GGML_PREC_DEFAULT(0),
-  GGML_PREC_F32(1);
+  GGML_PREC_F32(10);
 
   final int value;
   const ggml_prec(this.value);
 
   static ggml_prec fromValue(int value) => switch (value) {
         0 => GGML_PREC_DEFAULT,
-        1 => GGML_PREC_F32,
+        10 => GGML_PREC_F32,
         _ => throw ArgumentError("Unknown value for ggml_prec: $value"),
       };
 }
