@@ -13771,6 +13771,7 @@ class LlamaBindings {
       .asFunction<ffi.Pointer<llama_sampler> Function()>();
 
   /// @details Top-K sampling described in academic paper "The Curious Case of Neural Text Degeneration" https://arxiv.org/abs/1904.09751
+  /// Setting k <= 0 makes this a noop
   ffi.Pointer<llama_sampler> llama_sampler_init_top_k(
     int k,
   ) {
