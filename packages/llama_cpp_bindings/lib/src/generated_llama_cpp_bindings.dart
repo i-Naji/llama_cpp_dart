@@ -2076,6 +2076,21 @@ class LlamaBindings {
   late final _ggml_is_contiguous_2 = _ggml_is_contiguous_2Ptr
       .asFunction<bool Function(ffi.Pointer<ggml_tensor>)>();
 
+  bool ggml_is_contiguously_allocated(
+    ffi.Pointer<ggml_tensor> tensor,
+  ) {
+    return _ggml_is_contiguously_allocated(
+      tensor,
+    );
+  }
+
+  late final _ggml_is_contiguously_allocatedPtr =
+      _lookup<ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<ggml_tensor>)>>(
+          'ggml_is_contiguously_allocated');
+  late final _ggml_is_contiguously_allocated =
+      _ggml_is_contiguously_allocatedPtr
+          .asFunction<bool Function(ffi.Pointer<ggml_tensor>)>();
+
   bool ggml_is_contiguous_channels(
     ffi.Pointer<ggml_tensor> tensor,
   ) {
