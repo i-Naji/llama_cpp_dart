@@ -16247,9 +16247,8 @@ final class llama_context_params extends ffi.Struct {
 
   ggml_type get type_v => ggml_type.fromValue(type_vAsInt);
 
-  external ggml_abort_callback abort_callback;
-
-  external ffi.Pointer<ffi.Void> abort_callback_data;
+  @ffi.Bool()
+  external bool logits_all;
 
   @ffi.Bool()
   external bool embeddings;
@@ -16262,6 +16261,10 @@ final class llama_context_params extends ffi.Struct {
 
   @ffi.Bool()
   external bool no_perf;
+
+  external ggml_abort_callback abort_callback;
+
+  external ffi.Pointer<ffi.Void> abort_callback_data;
 }
 
 final class llama_model_quantize_params extends ffi.Struct {
