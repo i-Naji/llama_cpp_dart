@@ -9510,6 +9510,7 @@ class LlamaBindings {
     int n_backends,
     int graph_size,
     bool parallel,
+    bool op_offload,
   ) {
     return _ggml_backend_sched_new(
       backends,
@@ -9517,6 +9518,7 @@ class LlamaBindings {
       n_backends,
       graph_size,
       parallel,
+      op_offload,
     );
   }
 
@@ -9527,10 +9529,11 @@ class LlamaBindings {
               ffi.Pointer<ggml_backend_buffer_type_t>,
               ffi.Int,
               ffi.Size,
+              ffi.Bool,
               ffi.Bool)>>('ggml_backend_sched_new');
   late final _ggml_backend_sched_new = _ggml_backend_sched_newPtr.asFunction<
       ggml_backend_sched_t Function(ffi.Pointer<ggml_backend_t>,
-          ffi.Pointer<ggml_backend_buffer_type_t>, int, int, bool)>();
+          ffi.Pointer<ggml_backend_buffer_type_t>, int, int, bool, bool)>();
 
   void ggml_backend_sched_free(
     ggml_backend_sched_t sched,
@@ -16264,6 +16267,9 @@ final class llama_context_params extends ffi.Struct {
 
   @ffi.Bool()
   external bool no_perf;
+
+  @ffi.Bool()
+  external bool op_offload;
 }
 
 final class llama_model_quantize_params extends ffi.Struct {
