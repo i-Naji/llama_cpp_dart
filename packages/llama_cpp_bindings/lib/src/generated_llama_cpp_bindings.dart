@@ -10992,6 +10992,20 @@ class LlamaBindings {
   late final _ggml_opt_reset =
       _ggml_opt_resetPtr.asFunction<void Function(ggml_opt_context_t, bool)>();
 
+  bool ggml_opt_static_graphs(
+    ggml_opt_context_t opt_ctx,
+  ) {
+    return _ggml_opt_static_graphs(
+      opt_ctx,
+    );
+  }
+
+  late final _ggml_opt_static_graphsPtr =
+      _lookup<ffi.NativeFunction<ffi.Bool Function(ggml_opt_context_t)>>(
+          'ggml_opt_static_graphs');
+  late final _ggml_opt_static_graphs = _ggml_opt_static_graphsPtr
+      .asFunction<bool Function(ggml_opt_context_t)>();
+
   ffi.Pointer<ggml_tensor> ggml_opt_inputs(
     ggml_opt_context_t opt_ctx,
   ) {
