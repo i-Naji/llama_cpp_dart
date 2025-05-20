@@ -12406,59 +12406,6 @@ class LlamaBindings {
           int Function(ffi.Pointer<llama_context>, ffi.Pointer<ffi.Float>, int,
               int, int, int)>();
 
-  llama_kv_cache_view llama_kv_cache_view_init(
-    ffi.Pointer<llama_context> ctx,
-    int n_seq_max,
-  ) {
-    return _llama_kv_cache_view_init(
-      ctx,
-      n_seq_max,
-    );
-  }
-
-  late final _llama_kv_cache_view_initPtr = _lookup<
-      ffi.NativeFunction<
-          llama_kv_cache_view Function(ffi.Pointer<llama_context>,
-              ffi.Int32)>>('llama_kv_cache_view_init');
-  late final _llama_kv_cache_view_init =
-      _llama_kv_cache_view_initPtr.asFunction<
-          llama_kv_cache_view Function(ffi.Pointer<llama_context>, int)>();
-
-  void llama_kv_cache_view_free(
-    ffi.Pointer<llama_kv_cache_view> view,
-  ) {
-    return _llama_kv_cache_view_free(
-      view,
-    );
-  }
-
-  late final _llama_kv_cache_view_freePtr = _lookup<
-          ffi
-          .NativeFunction<ffi.Void Function(ffi.Pointer<llama_kv_cache_view>)>>(
-      'llama_kv_cache_view_free');
-  late final _llama_kv_cache_view_free = _llama_kv_cache_view_freePtr
-      .asFunction<void Function(ffi.Pointer<llama_kv_cache_view>)>();
-
-  void llama_kv_cache_view_update(
-    ffi.Pointer<llama_context> ctx,
-    ffi.Pointer<llama_kv_cache_view> view,
-  ) {
-    return _llama_kv_cache_view_update(
-      ctx,
-      view,
-    );
-  }
-
-  late final _llama_kv_cache_view_updatePtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<llama_context>,
-              ffi.Pointer<llama_kv_cache_view>)>>('llama_kv_cache_view_update');
-  late final _llama_kv_cache_view_update =
-      _llama_kv_cache_view_updatePtr.asFunction<
-          void Function(
-              ffi.Pointer<llama_context>, ffi.Pointer<llama_kv_cache_view>)>();
-
-  ///
   int llama_kv_self_n_tokens(
     ffi.Pointer<llama_context> ctx,
   ) {
@@ -12473,21 +12420,6 @@ class LlamaBindings {
   late final _llama_kv_self_n_tokens = _llama_kv_self_n_tokensPtr
       .asFunction<int Function(ffi.Pointer<llama_context>)>();
 
-  int llama_get_kv_cache_token_count(
-    ffi.Pointer<llama_context> ctx,
-  ) {
-    return _llama_get_kv_cache_token_count(
-      ctx,
-    );
-  }
-
-  late final _llama_get_kv_cache_token_countPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<llama_context>)>>(
-      'llama_get_kv_cache_token_count');
-  late final _llama_get_kv_cache_token_count =
-      _llama_get_kv_cache_token_countPtr
-          .asFunction<int Function(ffi.Pointer<llama_context>)>();
-
   int llama_kv_self_used_cells(
     ffi.Pointer<llama_context> ctx,
   ) {
@@ -12500,20 +12432,6 @@ class LlamaBindings {
           ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<llama_context>)>>(
       'llama_kv_self_used_cells');
   late final _llama_kv_self_used_cells = _llama_kv_self_used_cellsPtr
-      .asFunction<int Function(ffi.Pointer<llama_context>)>();
-
-  int llama_get_kv_cache_used_cells(
-    ffi.Pointer<llama_context> ctx,
-  ) {
-    return _llama_get_kv_cache_used_cells(
-      ctx,
-    );
-  }
-
-  late final _llama_get_kv_cache_used_cellsPtr = _lookup<
-          ffi.NativeFunction<ffi.Int32 Function(ffi.Pointer<llama_context>)>>(
-      'llama_get_kv_cache_used_cells');
-  late final _llama_get_kv_cache_used_cells = _llama_get_kv_cache_used_cellsPtr
       .asFunction<int Function(ffi.Pointer<llama_context>)>();
 
   void llama_kv_self_clear(
@@ -12711,186 +12629,6 @@ class LlamaBindings {
           ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_context>)>>(
       'llama_kv_self_update');
   late final _llama_kv_self_update = _llama_kv_self_updatePtr
-      .asFunction<void Function(ffi.Pointer<llama_context>)>();
-
-  void llama_kv_cache_clear(
-    ffi.Pointer<llama_context> ctx,
-  ) {
-    return _llama_kv_cache_clear(
-      ctx,
-    );
-  }
-
-  late final _llama_kv_cache_clearPtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_context>)>>(
-      'llama_kv_cache_clear');
-  late final _llama_kv_cache_clear = _llama_kv_cache_clearPtr
-      .asFunction<void Function(ffi.Pointer<llama_context>)>();
-
-  bool llama_kv_cache_seq_rm(
-    ffi.Pointer<llama_context> ctx,
-    int seq_id,
-    int p0,
-    int p1,
-  ) {
-    return _llama_kv_cache_seq_rm(
-      ctx,
-      seq_id,
-      p0,
-      p1,
-    );
-  }
-
-  late final _llama_kv_cache_seq_rmPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Bool Function(ffi.Pointer<llama_context>, llama_seq_id, llama_pos,
-              llama_pos)>>('llama_kv_cache_seq_rm');
-  late final _llama_kv_cache_seq_rm = _llama_kv_cache_seq_rmPtr
-      .asFunction<bool Function(ffi.Pointer<llama_context>, int, int, int)>();
-
-  void llama_kv_cache_seq_cp(
-    ffi.Pointer<llama_context> ctx,
-    int seq_id_src,
-    int seq_id_dst,
-    int p0,
-    int p1,
-  ) {
-    return _llama_kv_cache_seq_cp(
-      ctx,
-      seq_id_src,
-      seq_id_dst,
-      p0,
-      p1,
-    );
-  }
-
-  late final _llama_kv_cache_seq_cpPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<llama_context>, llama_seq_id,
-              llama_seq_id, llama_pos, llama_pos)>>('llama_kv_cache_seq_cp');
-  late final _llama_kv_cache_seq_cp = _llama_kv_cache_seq_cpPtr.asFunction<
-      void Function(ffi.Pointer<llama_context>, int, int, int, int)>();
-
-  void llama_kv_cache_seq_keep(
-    ffi.Pointer<llama_context> ctx,
-    int seq_id,
-  ) {
-    return _llama_kv_cache_seq_keep(
-      ctx,
-      seq_id,
-    );
-  }
-
-  late final _llama_kv_cache_seq_keepPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<llama_context>,
-              llama_seq_id)>>('llama_kv_cache_seq_keep');
-  late final _llama_kv_cache_seq_keep = _llama_kv_cache_seq_keepPtr
-      .asFunction<void Function(ffi.Pointer<llama_context>, int)>();
-
-  void llama_kv_cache_seq_add(
-    ffi.Pointer<llama_context> ctx,
-    int seq_id,
-    int p0,
-    int p1,
-    int delta,
-  ) {
-    return _llama_kv_cache_seq_add(
-      ctx,
-      seq_id,
-      p0,
-      p1,
-      delta,
-    );
-  }
-
-  late final _llama_kv_cache_seq_addPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<llama_context>, llama_seq_id, llama_pos,
-              llama_pos, llama_pos)>>('llama_kv_cache_seq_add');
-  late final _llama_kv_cache_seq_add = _llama_kv_cache_seq_addPtr.asFunction<
-      void Function(ffi.Pointer<llama_context>, int, int, int, int)>();
-
-  void llama_kv_cache_seq_div(
-    ffi.Pointer<llama_context> ctx,
-    int seq_id,
-    int p0,
-    int p1,
-    int d,
-  ) {
-    return _llama_kv_cache_seq_div(
-      ctx,
-      seq_id,
-      p0,
-      p1,
-      d,
-    );
-  }
-
-  late final _llama_kv_cache_seq_divPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<llama_context>, llama_seq_id, llama_pos,
-              llama_pos, ffi.Int)>>('llama_kv_cache_seq_div');
-  late final _llama_kv_cache_seq_div = _llama_kv_cache_seq_divPtr.asFunction<
-      void Function(ffi.Pointer<llama_context>, int, int, int, int)>();
-
-  int llama_kv_cache_seq_pos_max(
-    ffi.Pointer<llama_context> ctx,
-    int seq_id,
-  ) {
-    return _llama_kv_cache_seq_pos_max(
-      ctx,
-      seq_id,
-    );
-  }
-
-  late final _llama_kv_cache_seq_pos_maxPtr = _lookup<
-      ffi.NativeFunction<
-          llama_pos Function(ffi.Pointer<llama_context>,
-              llama_seq_id)>>('llama_kv_cache_seq_pos_max');
-  late final _llama_kv_cache_seq_pos_max = _llama_kv_cache_seq_pos_maxPtr
-      .asFunction<int Function(ffi.Pointer<llama_context>, int)>();
-
-  void llama_kv_cache_defrag(
-    ffi.Pointer<llama_context> ctx,
-  ) {
-    return _llama_kv_cache_defrag(
-      ctx,
-    );
-  }
-
-  late final _llama_kv_cache_defragPtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_context>)>>(
-      'llama_kv_cache_defrag');
-  late final _llama_kv_cache_defrag = _llama_kv_cache_defragPtr
-      .asFunction<void Function(ffi.Pointer<llama_context>)>();
-
-  bool llama_kv_cache_can_shift(
-    ffi.Pointer<llama_context> ctx,
-  ) {
-    return _llama_kv_cache_can_shift(
-      ctx,
-    );
-  }
-
-  late final _llama_kv_cache_can_shiftPtr = _lookup<
-          ffi.NativeFunction<ffi.Bool Function(ffi.Pointer<llama_context>)>>(
-      'llama_kv_cache_can_shift');
-  late final _llama_kv_cache_can_shift = _llama_kv_cache_can_shiftPtr
-      .asFunction<bool Function(ffi.Pointer<llama_context>)>();
-
-  void llama_kv_cache_update(
-    ffi.Pointer<llama_context> ctx,
-  ) {
-    return _llama_kv_cache_update(
-      ctx,
-    );
-  }
-
-  late final _llama_kv_cache_updatePtr = _lookup<
-          ffi.NativeFunction<ffi.Void Function(ffi.Pointer<llama_context>)>>(
-      'llama_kv_cache_update');
-  late final _llama_kv_cache_update = _llama_kv_cache_updatePtr
       .asFunction<void Function(ffi.Pointer<llama_context>)>();
 
   int llama_state_get_size(
@@ -17254,35 +16992,6 @@ final class llama_chat_message extends ffi.Struct {
 }
 
 final class llama_adapter_lora extends ffi.Opaque {}
-
-final class llama_kv_cache_view_cell extends ffi.Struct {
-  @llama_pos()
-  external int pos;
-}
-
-final class llama_kv_cache_view extends ffi.Struct {
-  @ffi.Int32()
-  external int n_cells;
-
-  @ffi.Int32()
-  external int n_seq_max;
-
-  @ffi.Int32()
-  external int token_count;
-
-  @ffi.Int32()
-  external int used_cells;
-
-  @ffi.Int32()
-  external int max_contiguous;
-
-  @ffi.Int32()
-  external int max_contiguous_idx;
-
-  external ffi.Pointer<llama_kv_cache_view_cell> cells;
-
-  external ffi.Pointer<llama_seq_id> cells_sequences;
-}
 
 final class llama_perf_context_data extends ffi.Struct {
   @ffi.Double()
