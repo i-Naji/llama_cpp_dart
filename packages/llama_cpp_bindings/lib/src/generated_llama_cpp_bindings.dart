@@ -12637,6 +12637,23 @@ class LlamaBindings {
   late final _llama_kv_self_seq_div = _llama_kv_self_seq_divPtr.asFunction<
       void Function(ffi.Pointer<llama_context>, int, int, int, int)>();
 
+  int llama_kv_self_seq_pos_min(
+    ffi.Pointer<llama_context> ctx,
+    int seq_id,
+  ) {
+    return _llama_kv_self_seq_pos_min(
+      ctx,
+      seq_id,
+    );
+  }
+
+  late final _llama_kv_self_seq_pos_minPtr = _lookup<
+      ffi.NativeFunction<
+          llama_pos Function(ffi.Pointer<llama_context>,
+              llama_seq_id)>>('llama_kv_self_seq_pos_min');
+  late final _llama_kv_self_seq_pos_min = _llama_kv_self_seq_pos_minPtr
+      .asFunction<int Function(ffi.Pointer<llama_context>, int)>();
+
   int llama_kv_self_seq_pos_max(
     ffi.Pointer<llama_context> ctx,
     int seq_id,
@@ -17169,6 +17186,9 @@ final class llama_context_params extends ffi.Struct {
 
   @ffi.Bool()
   external bool op_offload;
+
+  @ffi.Bool()
+  external bool swa_full;
 }
 
 final class llama_model_quantize_params extends ffi.Struct {
