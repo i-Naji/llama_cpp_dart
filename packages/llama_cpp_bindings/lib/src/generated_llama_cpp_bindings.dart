@@ -3776,6 +3776,42 @@ class LlamaBindings {
       ffi.Pointer<ggml_tensor> Function(
           ffi.Pointer<ggml_context>, ffi.Pointer<ggml_tensor>)>();
 
+  ffi.Pointer<ggml_tensor> ggml_gelu_erf(
+    ffi.Pointer<ggml_context> ctx,
+    ffi.Pointer<ggml_tensor> a,
+  ) {
+    return _ggml_gelu_erf(
+      ctx,
+      a,
+    );
+  }
+
+  late final _ggml_gelu_erfPtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_context>,
+              ffi.Pointer<ggml_tensor>)>>('ggml_gelu_erf');
+  late final _ggml_gelu_erf = _ggml_gelu_erfPtr.asFunction<
+      ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>, ffi.Pointer<ggml_tensor>)>();
+
+  ffi.Pointer<ggml_tensor> ggml_gelu_erf_inplace(
+    ffi.Pointer<ggml_context> ctx,
+    ffi.Pointer<ggml_tensor> a,
+  ) {
+    return _ggml_gelu_erf_inplace(
+      ctx,
+      a,
+    );
+  }
+
+  late final _ggml_gelu_erf_inplacePtr = _lookup<
+      ffi.NativeFunction<
+          ffi.Pointer<ggml_tensor> Function(ffi.Pointer<ggml_context>,
+              ffi.Pointer<ggml_tensor>)>>('ggml_gelu_erf_inplace');
+  late final _ggml_gelu_erf_inplace = _ggml_gelu_erf_inplacePtr.asFunction<
+      ffi.Pointer<ggml_tensor> Function(
+          ffi.Pointer<ggml_context>, ffi.Pointer<ggml_tensor>)>();
+
   ffi.Pointer<ggml_tensor> ggml_gelu_quick(
     ffi.Pointer<ggml_context> ctx,
     ffi.Pointer<ggml_tensor> a,
@@ -15581,15 +15617,16 @@ enum ggml_unary_op {
   GGML_UNARY_OP_STEP(3),
   GGML_UNARY_OP_TANH(4),
   GGML_UNARY_OP_ELU(5),
-  GGML_UNARY_OP_RELU(6),
-  GGML_UNARY_OP_SIGMOID(7),
-  GGML_UNARY_OP_GELU(8),
+  GGML_UNARY_OP_SIGMOID(6),
+  GGML_UNARY_OP_GELU(7),
+  GGML_UNARY_OP_GELU_ERF(8),
   GGML_UNARY_OP_GELU_QUICK(9),
   GGML_UNARY_OP_SILU(10),
   GGML_UNARY_OP_HARDSWISH(11),
   GGML_UNARY_OP_HARDSIGMOID(12),
   GGML_UNARY_OP_EXP(13),
-  GGML_UNARY_OP_COUNT(14);
+  GGML_UNARY_OP_RELU(14),
+  GGML_UNARY_OP_COUNT(15);
 
   final int value;
   const ggml_unary_op(this.value);
@@ -15601,15 +15638,16 @@ enum ggml_unary_op {
         3 => GGML_UNARY_OP_STEP,
         4 => GGML_UNARY_OP_TANH,
         5 => GGML_UNARY_OP_ELU,
-        6 => GGML_UNARY_OP_RELU,
-        7 => GGML_UNARY_OP_SIGMOID,
-        8 => GGML_UNARY_OP_GELU,
+        6 => GGML_UNARY_OP_SIGMOID,
+        7 => GGML_UNARY_OP_GELU,
+        8 => GGML_UNARY_OP_GELU_ERF,
         9 => GGML_UNARY_OP_GELU_QUICK,
         10 => GGML_UNARY_OP_SILU,
         11 => GGML_UNARY_OP_HARDSWISH,
         12 => GGML_UNARY_OP_HARDSIGMOID,
         13 => GGML_UNARY_OP_EXP,
-        14 => GGML_UNARY_OP_COUNT,
+        14 => GGML_UNARY_OP_RELU,
+        15 => GGML_UNARY_OP_COUNT,
         _ => throw ArgumentError("Unknown value for ggml_unary_op: $value"),
       };
 }
