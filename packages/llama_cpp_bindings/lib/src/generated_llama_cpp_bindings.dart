@@ -11740,6 +11740,16 @@ class LlamaBindings {
   late final _llama_max_devices =
       _llama_max_devicesPtr.asFunction<int Function()>();
 
+  int llama_max_parallel_sequences() {
+    return _llama_max_parallel_sequences();
+  }
+
+  late final _llama_max_parallel_sequencesPtr =
+      _lookup<ffi.NativeFunction<ffi.Size Function()>>(
+          'llama_max_parallel_sequences');
+  late final _llama_max_parallel_sequences =
+      _llama_max_parallel_sequencesPtr.asFunction<int Function()>();
+
   bool llama_supports_mmap() {
     return _llama_supports_mmap();
   }
