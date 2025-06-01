@@ -15971,6 +15971,7 @@ final class ggml_type_traits extends ffi.Struct {
 }
 
 enum ggml_sched_priority {
+  GGML_SCHED_PRIO_LOW(-1),
   GGML_SCHED_PRIO_NORMAL(0),
   GGML_SCHED_PRIO_MEDIUM(1),
   GGML_SCHED_PRIO_HIGH(2),
@@ -15980,6 +15981,7 @@ enum ggml_sched_priority {
   const ggml_sched_priority(this.value);
 
   static ggml_sched_priority fromValue(int value) => switch (value) {
+        -1 => GGML_SCHED_PRIO_LOW,
         0 => GGML_SCHED_PRIO_NORMAL,
         1 => GGML_SCHED_PRIO_MEDIUM,
         2 => GGML_SCHED_PRIO_HIGH,
@@ -15996,7 +15998,7 @@ final class ggml_threadpool_params extends ffi.Struct {
   @ffi.Int()
   external int n_threads;
 
-  @ffi.UnsignedInt()
+  @ffi.Int()
   external int prioAsInt;
 
   ggml_sched_priority get prio => ggml_sched_priority.fromValue(prioAsInt);
