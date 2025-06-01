@@ -7795,47 +7795,6 @@ class LlamaBindings {
       ffi.Pointer<ggml_tensor> Function(
           ffi.Pointer<ggml_cgraph>, ffi.Pointer<ggml_tensor>)>();
 
-  void ggml_graph_export(
-    ffi.Pointer<ggml_cgraph> cgraph,
-    ffi.Pointer<ffi.Char> fname,
-  ) {
-    return _ggml_graph_export(
-      cgraph,
-      fname,
-    );
-  }
-
-  late final _ggml_graph_exportPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Void Function(ffi.Pointer<ggml_cgraph>,
-              ffi.Pointer<ffi.Char>)>>('ggml_graph_export');
-  late final _ggml_graph_export = _ggml_graph_exportPtr.asFunction<
-      void Function(ffi.Pointer<ggml_cgraph>, ffi.Pointer<ffi.Char>)>();
-
-  ffi.Pointer<ggml_cgraph> ggml_graph_import(
-    ffi.Pointer<ffi.Char> fname,
-    ffi.Pointer<ffi.Pointer<ggml_context>> ctx_data,
-    ffi.Pointer<ffi.Pointer<ggml_context>> ctx_eval,
-  ) {
-    return _ggml_graph_import(
-      fname,
-      ctx_data,
-      ctx_eval,
-    );
-  }
-
-  late final _ggml_graph_importPtr = _lookup<
-      ffi.NativeFunction<
-          ffi.Pointer<ggml_cgraph> Function(
-              ffi.Pointer<ffi.Char>,
-              ffi.Pointer<ffi.Pointer<ggml_context>>,
-              ffi.Pointer<ffi.Pointer<ggml_context>>)>>('ggml_graph_import');
-  late final _ggml_graph_import = _ggml_graph_importPtr.asFunction<
-      ffi.Pointer<ggml_cgraph> Function(
-          ffi.Pointer<ffi.Char>,
-          ffi.Pointer<ffi.Pointer<ggml_context>>,
-          ffi.Pointer<ffi.Pointer<ggml_context>>)>();
-
   void ggml_graph_print(
     ffi.Pointer<ggml_cgraph> cgraph,
   ) {
